@@ -296,7 +296,7 @@ The following commands execute the verified Tier 1 pipeline, in order.
 ### 1. Ingest the Sample Call
 
 ```bash
-python scripts/ingest_call.py
+python -m scripts.ingest_call
 ```
 
 This reads audio from `sample_calls/` and creates a new `Call` record in PostgreSQL (idempotent — re-running on the same file does not create a duplicate).
@@ -304,19 +304,19 @@ This reads audio from `sample_calls/` and creates a new `Call` record in Postgre
 ### 2. Transcribe the Audio
 
 ```bash
-python scripts/transcribe_call.py
+python -m scripts.transcribe_call
 ```
 
 ### 3. Perform Speaker Diarisation
 
 ```bash
-python scripts/diarize_call.py
+python -m scripts.diarize_call
 ```
 
 ### 4. Run LLM Analysis
 
 ```bash
-python scripts/analyze_call.py
+python -m scripts.analyze_call
 ```
 
 This stage evaluates the transcript, generates rubric scores, detects issue flags, validates structured JSON output, verifies quoted transcript lines using the hallucination guardrail, computes the deterministic weighted score, and stores the results in PostgreSQL.
